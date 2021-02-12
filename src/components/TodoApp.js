@@ -1,7 +1,6 @@
 import React,{ useState } from 'react'
 import './App.css';
 import 'date-fns';
-import DatePicker from 'react-datepicker';
 import DateFnsUtils from '@date-io/date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '@material-ui/core/Button';
@@ -15,7 +14,6 @@ import { TodoList } from './TodoList';
 
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
 
@@ -88,7 +86,7 @@ export const TodoApp = () => {
 
                     <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="priority">Priority:</InputLabel>
-                                <Input id="priority" type="number" autoFocus onChange={handlePriorityChange}  value={priority} />
+                                <Input id="priority" type="number"  onChange={handlePriorityChange}  value={priority} />
                     </FormControl>
 
                     

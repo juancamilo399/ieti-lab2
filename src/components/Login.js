@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,7 +13,28 @@ import './Login.css'
 
 
 
-export const Login = () => {
+export const Login = ({successful,failed}) => {
+
+    const [user, setuser] = useState("")
+    const [pass, setpass] = useState("")
+
+    const handleUserChange = (e) =>{
+        setuser(e.target.value)
+    }
+
+    const handlePassChange = (e) =>{
+        setpass(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(user === localStorage.getItem("Username") && pass === localStorage.getItem("Password")){
+            successful();
+        } else {
+            failed();
+        }
+    }
+
     return (
         <div>
 
@@ -25,10 +46,10 @@ export const Login = () => {
                             <LockIcon />
                         </Avatar>
                         <Typography variant="h2">Sign in</Typography>
-                        <form className="form">
+                        <form className="form" onSubmit={handleSubmit}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" autoComplete="email" autoFocus />
+                                <Input id="email" name="email" autoComplete="email" autoFocus onChange={handleUserChange} />
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -37,6 +58,7 @@ export const Login = () => {
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    onChange={handlePassChange}
                                 />
                             </FormControl>
                             <Button
