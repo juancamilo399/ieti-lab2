@@ -1,10 +1,23 @@
 import React,{ useState } from 'react'
-import logo from './logo.svg';
 import './App.css';
+import 'date-fns';
 import DatePicker from 'react-datepicker';
+import DateFnsUtils from '@date-io/date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import moment from "moment";
 import { TodoList } from './TodoList';
+
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers';
 
 export const TodoApp = () => {
 
@@ -46,56 +59,75 @@ export const TodoApp = () => {
     
         settext('')
         setpriority('')
-        setdueDate('')
+       
     
       }
 
 
     return (
-        <div>
-
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <div>
+           
+            <CssBaseline />
             <div className="App">
                 
 
                 <br/>
                 <br/>
                 <form onSubmit={handleSubmit} className="todo-form">
-                    <h3>New TODO</h3>
-                    <label htmlFor="text" className="right-margin">
-                        Text:
-                    </label>
-
-                    <input
-                        id="text"
-                        onChange={handleTextChange}
-                        value={text}>
-                    </input>
+                    
+                    <Typography variant="h3">New TODO</Typography>
+                    
+                    <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="text">Text: </InputLabel>
+                                <Input id="text" autoFocus onChange={handleTextChange} value={text} />
+                    </FormControl>
 
                     <br/>
                     <br/>
-                    <label htmlFor="priority" className="right-margin">
-                        Priority:
-                    </label>
 
-                    <input
-                        id="priority"
-                        type="number"
-                        onChange={handlePriorityChange}
-                        value={priority}>
-                    </input>
+                    <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="priority">Priority:</InputLabel>
+                                <Input id="priority" type="number" autoFocus onChange={handlePriorityChange}  value={priority} />
+                    </FormControl>
+
+                    
                     <br/>
                     <br/>
 
-                    <DatePicker
+                    <KeyboardDatePicker
                         id="due-date"
-                        selected={dueDate}
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        label="Date picker inline"
                         placeholderText="Due date"
-                        onChange={(dueDate)=>handleDateChange(dueDate)}>
-                    </DatePicker>
+                        value={dueDate}
+                        onChange={(dueDate)=>handleDateChange(dueDate)}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                      }}
+                    />
+
+                    
                     <br/>
-                    <button>
-                        Add #{items.length + 1}
-                    </button>
+                    <br/>
+
+
+                    <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className="submit"
+                            >
+                                Add #{items.length + 1}
+                    </Button>
+
+
+                   
                 </form>
                 <br/>
                 <br/>
@@ -103,5 +135,6 @@ export const TodoApp = () => {
             </div>
             
         </div>
+        </MuiPickersUtilsProvider>
     )
 }
