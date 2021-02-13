@@ -94,7 +94,6 @@ export const TodoApp = () => {
                             margin="normal"
                             id="date-picker-inline"
                             label="Date picker inline"
-                            placeholderText="Due date"
                             value={dueDate}
                             onChange={(dueDate) => handleDateChange(dueDate)}
                             KeyboardButtonProps={{

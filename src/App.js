@@ -12,13 +12,15 @@ export const App = () => {
 
     localStorage.setItem("Username", "juan@gmail.com");
     localStorage.setItem("Password", "pass");
+    //localStorage.setItem("isLoggedIn","false")
 
     let isLogged = localStorage.getItem("isLoggedIn");
 
-    isLogged= (isLogged==="false" ? false : true)
+    isLogged= (isLogged==="true" ? true : false)
 
     const [isLoggedIn, setisLoggedIn] = useState(isLogged)
 
+    
     const handleSuccessfullyLogin = (e) => {
         Swal.fire({
             title: 'Login succesfull',
@@ -28,8 +30,8 @@ export const App = () => {
             icon: 'success',
             showConfirmButton: false
         })
-        setisLoggedIn(true);
         localStorage.setItem("isLoggedIn", "true");
+        setisLoggedIn(true)
     }
 
     const handleFailedLogin = (e) => {
@@ -41,8 +43,8 @@ export const App = () => {
             icon: 'error',
             showConfirmButton: false
         })
-        setisLoggedIn(false);
         localStorage.setItem("isLoggedIn", "false");
+        setisLoggedIn(false)
     }
 
     const LoginView = () => (
@@ -53,8 +55,12 @@ export const App = () => {
         <TodoApp />
     );
 
+  
+    const correct=   isLoggedIn ? TodoAppView:LoginView
+ 
     return (
         <div>
+
             <Router>
                 <div className="App">
                     <header className="App-header">
@@ -65,28 +71,17 @@ export const App = () => {
                     <br />
                     <br />
 
-                    <ul>
-                        <li><Link to="/">Login</Link></li>
-
-                        {isLoggedIn && (<li><Link to="/todo">Todo</Link></li>)}
-
-                    </ul>
-
                     <div>
-
-                        <Route exact path="/" component={LoginView} />
-
-                        {isLoggedIn && (<Route path="/todo" component={TodoAppView} />)}
-
+                        
+                        <Route path="/" component={correct} />
+                        <Route path="/todo" component={correct} />
+                        
                     </div>
                 </div>
             </Router>
 
-
         </div>
     )
 }
-
-
 
 export default App;
