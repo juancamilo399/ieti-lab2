@@ -5,13 +5,10 @@ import { Todo } from './Todo'
 export const TodoList = ({todoList}) => {
 
     const List =todoList.map((todo,i)=>{
-        console.log(todo.dueDate)
         return (
             <Todo key={i} text={todo.text} priority={todo.priority} dueDate={todo.dueDate}/>
         )
     })
-
-    
 
     return (
         <div>
